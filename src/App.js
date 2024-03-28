@@ -15,9 +15,6 @@ function App() {
         setData(`You connected with id: ${socketRef.current.id}`);
       });
 
-      // Emit event to start transcription
-      socketRef.current.emit("startTranscription");
-
       socketRef.current.on("transcription", (newTranscription) => {
         setTranscriptions((prevTranscriptions) => [
           ...prevTranscriptions,
@@ -35,9 +32,20 @@ function App() {
     };
   }, []);
 
+  const handleStartTranscription = () => {
+    socketRef.current.emit("startTranscription");
+  };
+
+  const handleStopTranscription = () => {
+    socketRef.current.emit("stopTranscription");
+    setTranscriptions([]);
+  };
+
   return (
     <div>
       <p>{data}</p>
+      <button onClick={handleStartTranscription}>Start Transcription</button>
+      <button onClick={handleStopTranscription}>Stop Transcription</button>
       <h2>Live Transcription</h2>
       {transcriptions.map((transcription, index) => (
         <p key={index}>{transcription}</p>
