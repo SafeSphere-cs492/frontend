@@ -15,12 +15,17 @@ function App() {
         setData(`You connected with id: ${socketRef.current.id}`);
       });
 
-      socketRef.current.on("transcription", (newTranscription) => {
-        setTranscriptions((prevTranscriptions) => [
-          ...prevTranscriptions,
-          newTranscription,
-        ]);
-      });
+      socketRef.current.on(
+        "transcriptionAnalysis",
+        ({ transcript, analysisResult }) => {
+          console.log("transcript", transcript);
+          console.log("analysisResult", analysisResult);
+          setTranscriptions((prevTranscriptions) => [
+            ...prevTranscriptions,
+            { text: transcript, analysis: analysisResult },
+          ]);
+        }
+      );
     }
 
     // disconnect the socket when the component unmounts
@@ -48,7 +53,13 @@ function App() {
       <button onClick={handleStopTranscription}>Stop Transcription</button>
       <h2>Live Transcription</h2>
       {transcriptions.map((transcription, index) => (
-        <p key={index}>{transcription}</p>
+        <div key={index}>
+          <p>{transcription.text}</p>
+          <p>
+            Analysis Score:{" "}
+            {transcription.analysis.attributeScores.TOXICITY.summaryScore.value}
+          </p>
+        </div>
       ))}
     </div>
   );
