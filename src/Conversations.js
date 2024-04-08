@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { io } from "socket.io-client";
 
 export default function Conversations() {
-  const [data, setData] = useState("");
+  // const [data, setData] = useState("");
   const [transcriptions, setTranscriptions] = useState([]);
   const [isRecording, setIsRecording] = useState(false);
   const socketRef = useRef(null);
@@ -11,11 +11,11 @@ export default function Conversations() {
   useEffect(() => {
     // Initialize the socket connection
     if (!socketRef.current) {
-      socketRef.current = io("http://localhost:3000");
+      socketRef.current = io("https://api-dot-safesphere-418602.ue.r.appspot.com/");
 
-      socketRef.current.on("connect", () => {
-        setData(`You connected with id: ${socketRef.current.id}`);
-      });
+      // socketRef.current.on("connect", () => {
+      //   setData(`You connected with id: ${socketRef.current.id}`);
+      // });
 
       socketRef.current.on(
         "transcriptionAnalysis",
