@@ -11,7 +11,10 @@ export default function Conversations() {
   useEffect(() => {
     // Initialize the socket connection
     if (!socketRef.current) {
-      socketRef.current = io("https://api-dot-safesphere-418602.ue.r.appspot.com/");
+      socketRef.current = io(
+        "https://api-dot-safesphere-418602.ue.r.appspot.com/",
+        { transports: ["websocket"] }
+      );
 
       // socketRef.current.on("connect", () => {
       //   setData(`You connected with id: ${socketRef.current.id}`);
@@ -63,7 +66,7 @@ export default function Conversations() {
     <div>
       <div className="block h-24 border-b-2 bg-indigo-900 p-6">
         <h1 className="flex justify-center text-4xl font-bold text-white">
-          <Link to={'/'}>SafeSphere</Link>
+          <Link to={"/"}>SafeSphere</Link>
         </h1>
       </div>
       <div className="flex justify-center h-screen bg-blue-200">
