@@ -12,7 +12,7 @@ export default function Conversations() {
     // Initialize the socket connection
     if (!socketRef.current) {
       socketRef.current = io(
-        "https://cors-anywhere.herokuapp.com/https://api-dot-safesphere-418602.ue.r.appspot.com"
+        "https://api-dot-safesphere-418602.ue.r.appspot.com"
       );
 
       // socketRef.current.on("connect", () => {
